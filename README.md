@@ -33,6 +33,18 @@ uvicorn app.main:app --reload --port 8000
 
 Mở trình duyệt tại `http://localhost:8000` — frontend được phục vụ tĩnh từ cùng server FastAPI, không cần bước build riêng.
 
+## Deploy (Render)
+
+Ứng dụng có backend Python thật (GeoPandas/OR-Tools) nên **không** deploy được lên GitHub Pages (chỉ phục vụ file tĩnh) như WebGIS tham chiếu. `render.yaml` ở gốc repo đã khai báo sẵn service để deploy 1 lần bằng Render Blueprint:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/nguyenletandat/webgis-racdian)
+
+1. Bấm nút trên → đăng nhập/kết nối GitHub với Render (nếu chưa có tài khoản Render, tạo mới miễn phí).
+2. Render tự đọc `render.yaml`, tạo web service `webgis-racdian` (free plan), cài `backend/requirements.txt`, chạy `uvicorn app.main:app`.
+3. Sau khi build xong (vài phút, chủ yếu do GeoPandas/OR-Tools), Render cấp domain dạng `https://webgis-racdian.onrender.com` — đó là link xem WebGIS.
+
+Lưu ý free plan: server "ngủ" sau ~15 phút không có request, lần truy cập đầu tiên sau đó sẽ mất khoảng 30-60 giây để khởi động lại (thời gian này bao gồm cả việc dựng lại đồ thị mạng lưới đường từ shapefile).
+
 ## API
 
 | Method | Endpoint | Mô tả |
