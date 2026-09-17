@@ -1,8 +1,8 @@
 const API_BASE = "";
 
 const map = L.map("map", { zoomControl: true }).setView([10.9, 106.77], 13);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-  attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap contributors",
   maxZoom: 19,
 }).addTo(map);
 
