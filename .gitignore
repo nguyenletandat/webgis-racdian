@@ -1,0 +1,25 @@
+# Python
+.venv/
+.venv_check/
+__pycache__/
+*.pyc
+
+# Node (if a build step is added later)
+node_modules/
+
+# Editors / OS
+.vscode/
+.markdown-collab/
+Thumbs.db
+.DS_Store
+
+# Large / redundant source data (kept locally, not needed to run the app)
+Input_data.rar
+Input_data/DA.gdb/
+
+# Raw nationwide OSM / admin-boundary extracts (multi-GB, source material only —
+# backend/scripts/prepare_context_layers.py clips the small Dĩ An-area slice we actually ship)
+Shp/
+
+# Logs
+*.log

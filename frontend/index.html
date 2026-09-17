@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WebGIS RacDiAn — Tối ưu tuyến thu gom CTR</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <header class="panel__header">
+      <h1>WebGIS RacDiAn</h1>
+      <p>Tối ưu hóa tuyến thu gom chất thải rắn sinh hoạt (CVRP) — khu vực Dĩ An</p>
+    </header>
+
+    <section class="panel__section">
+      <h2>Dữ liệu khu vực</h2>
+      <dl class="meta-grid" id="meta-grid">
+        <dt>Tổng điểm gom rác</dt><dd id="meta-orders">—</dd>
+        <dt>Tổng khối lượng rác</dt><dd id="meta-demand">—</dd>
+        <dt>Nút mạng lưới đường</dt><dd id="meta-nodes">—</dd>
+        <dt>Đoạn đường</dt><dd id="meta-edges">—</dd>
+      </dl>
+    </section>
+
+    <section class="panel__section" id="ward-section" hidden>
+      <h2>Ranh giới hành chính</h2>
+      <dl class="meta-grid">
+        <dt>Phường</dt><dd id="ward-name">—</dd>
+        <dt>Diện tích</dt><dd id="ward-area">—</dd>
+        <dt>Dân số</dt><dd id="ward-population">—</dd>
+        <dt>Mật độ dân số</dt><dd id="ward-density">—</dd>
+      </dl>
+      <p class="hint" id="ward-merged"></p>
+    </section>
+
+    <section class="panel__section">
+      <h2>Tham số bài toán</h2>
+      <form id="optimize-form">
+        <label>
+          Số điểm gom đưa vào bài toán
+          <input type="number" id="sample_size" value="150" min="5" max="2000" step="10" />
+        </label>
+        <label>
+          Số xe tối đa
+          <input type="number" id="num_vehicles" value="8" min="1" max="30" />
+        </label>
+        <label>
+          Tải trọng mỗi xe (kg)
+          <input type="number" id="vehicle_capacity_kg" value="3000" min="100" max="20000" step="100" />
+        </label>
+        <label>
+          Giới hạn thời gian giải (giây)
+          <input type="number" id="time_limit_s" value="10" min="1" max="30" />
+        </label>
+        <button type="submit" id="optimize-btn">Tối ưu hóa tuyến</button>
+      </form>
+      <p class="status" id="status"></p>
+    </section>
+
+    <section class="panel__section" id="kpi-section" hidden>
+      <h2>Kết quả tối ưu hóa</h2>
+      <div class="kpi-grid">
+        <div class="kpi"><span id="kpi-vehicles">—</span><label>Số xe sử dụng</label></div>
+        <div class="kpi"><span id="kpi-distance">—</span><label>Tổng quãng đường (km)</label></div>
+        <div class="kpi"><span id="kpi-utilization">—</span><label>Tải trọng TB (%)</label></div>
+        <div class="kpi"><span id="kpi-time">—</span><label>Thời gian giải (s)</label></div>
+      </div>
+      <table class="route-table" id="route-table">
+        <thead>
+          <tr><th>Xe</th><th>Điểm</th><th>Tải (kg)</th><th>Đầy tải</th><th>Km</th></tr>
+        </thead>
+        <tbody id="route-table-body"></tbody>
+      </table>
+    </section>
+
+    <footer class="panel__footer">
+      <label class="toggle"><input type="checkbox" id="toggle-roads" /> Hiện mạng lưới đường</label>
+      <label class="toggle"><input type="checkbox" id="toggle-orders" checked /> Hiện điểm gom rác</label>
+      <label class="toggle"><input type="checkbox" id="toggle-boundary" checked /> Hiện ranh giới hành chính</label>
+    </footer>
+  </aside>
+
+  <main class="map-wrap">
+    <div id="map"></div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

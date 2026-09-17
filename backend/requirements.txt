@@ -1,0 +1,12 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+geopandas==1.1.4
+shapely==2.1.2
+networkx==3.6.1
+ortools==9.15.6755
+scipy==1.17.1
+pyogrio==0.13.0
+fiona==1.10.1
+
+# Only needed to re-run scripts/prepare_context_layers.py against a fresh Shp/ export
+ijson==3.5.1
